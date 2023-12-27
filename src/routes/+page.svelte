@@ -2,17 +2,6 @@
 	import Heading from '$lib/components/Heading.svelte';
 	import Row from '$lib/components/Row.svelte';
 	import { characters, weapons, rooms } from '$lib/data/items';
-	import { game } from '../stores/game';
-
-	function getStatesFor(name: string) {
-		const states = $game.find((line) => line.name === name)?.states;
-
-		if (!states) {
-			throw new Error('issue');
-		}
-
-		return states;
-	}
 </script>
 
 <div
@@ -20,16 +9,16 @@
 >
 	<Heading>Characters</Heading>
 	{#each characters as character}
-		<Row label={character} states={getStatesFor(character)} />
+		<Row label={character.name} idx={character.idx} />
 	{/each}
 
 	<Heading>Weapons</Heading>
 	{#each weapons as weapon}
-		<Row label={weapon} states={getStatesFor(weapon)} />
+		<Row label={weapon.name} idx={weapon.idx} />
 	{/each}
 
 	<Heading>Rooms</Heading>
 	{#each rooms as room}
-		<Row label={room} states={getStatesFor(room)} />
+		<Row label={room.name} idx={room.idx} />
 	{/each}
 </div>

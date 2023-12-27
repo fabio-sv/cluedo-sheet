@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { State } from '../../stores/game';
-	import { States, game } from '../../stores/game';
+	import { States, newGame } from '../../stores/game';
 
 	// @ts-ignore
 	import Icon from 'svelte-icons-pack/Icon.svelte';
@@ -8,7 +8,7 @@
 	import ImCheckmark from 'svelte-icons-pack/im/ImCheckmark';
 
 	export let label: string;
-	export let states: State[];
+	export let idx: number;
 
 	let open: number = -1;
 
@@ -19,48 +19,29 @@
 	function onSelect(character?: States, note?: number) {
 		console.log('updating game', label, open, character, note);
 
-		$game = $game.map((line) => {
-			if (line.name !== label) {
-				return line;
-			}
+		const newNotes = note
+			? Array.from(new Set([...$newGame[idx][open].notes, note]))
+			: $newGame[idx][open].notes;
 
-			const newAtom = { ...line.states[open] };
-			console.log(JSON.stringify(line.states), open, newAtom);
+		const newState: State = {
+			state: character || $newGame[idx][open].state,
+			notes: newNotes
+		};
 
-			// debugger;
-
-			if (character) {
-				newAtom.state = character;
-			}
-
-			if (note) {
-				const notes = Array.from(new Set([...newAtom.notes, note]));
-				newAtom.notes = [...notes.sort()];
-			}
-
-			console.log(JSON.stringify(line.states), open, newAtom);
-
-			line.states[open] = { ...newAtom };
-
-			console.log(JSON.stringify(line.states), open, newAtom);
-
-			return line;
-		});
-
+		$newGame[idx][open] = newState;
 		open = -1;
 	}
 
-	$: console.log($game);
 </script>
 
 <div class="flex border-t-2">
 	<p class="flex-1 py-[0.125rem] px-4">{label}</p>
 
-	{#each states as state, i (i)}
+	{#each $newGame[idx] as state, j (j)}
 		<button
 			class="flex relative justify-center items-center border-l-2 border-blue-600 min-w-8"
-			class:highlight={open === i}
-			on:click={() => onOpen(i)}
+			class:highlight={open === j}
+			on:click={() => onOpen(j)}
 		>
 			{#if state.state === States.CROSS}
 				<Icon src={ImCross} />
@@ -71,7 +52,7 @@
 			{/if}
 
 			<div class="absolute text-[0.5rem] right-[0.2rem] bottom-0 text-right">
-				{#each state.notes as note, note_i (note_i)}
+				{#each state.notes as note}
 					{note + ' '}
 				{/each}
 			</div>

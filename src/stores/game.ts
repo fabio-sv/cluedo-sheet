@@ -15,22 +15,27 @@ export type State = {
   notes: number[];
 };
 
-type CharacterLine = {
-  name: string;
-  states: State[];
-};
+const _default = (): State[][] => {
+  const rows = characters.length + weapons.length + rooms.length;
+  const cols = MAX_PLAYERS;
+  const array: State[][] = [];
 
-const empty = (): State => ({
-  state: States.UNKNOWN,
-  notes: [],
-});
+  for (let i = 0; i < rows; i++) {
+    const row: State[] = [];
+    
+    for (let j = 0; j < cols; j++) {
+      const newObj: State = {
+        state: States.UNKNOWN,
+        notes: []
+      };
 
-const defaultState = (): CharacterLine[] =>
-  [...characters, ...weapons, ...rooms].map<CharacterLine>((
-    name: string,
-  ): CharacterLine => ({
-    name,
-    states: Array(MAX_PLAYERS).fill(empty()),
-  }));
+      row.push(newObj);
+    }
 
-export const game = writable<CharacterLine[]>(defaultState());
+    array.push(row);
+  }
+
+  return array;
+}
+
+export const newGame = writable<State[][]>(_default());
