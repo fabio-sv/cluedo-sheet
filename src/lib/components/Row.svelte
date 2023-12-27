@@ -7,7 +7,7 @@
 	import ImCross from 'svelte-icons-pack/im/ImCross';
 	import ImCheckmark from 'svelte-icons-pack/im/ImCheckmark';
 	import VscClose from 'svelte-icons-pack/vsc/VscClose';
-	import { fade } from 'svelte/transition';
+	import { fade, slide } from 'svelte/transition';
 
 	export let label: string;
 	export let idx: number;
@@ -78,7 +78,7 @@
 
 			<div class="absolute text-[0.5rem] right-[0.2rem] bottom-0 text-right">
 				{#each state.notes as note}
-					{note + ' '}
+					<span transition:slide>{note + ' '}</span>
 				{/each}
 			</div>
 		</button>
