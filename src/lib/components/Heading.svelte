@@ -1,0 +1,1 @@
+<div class="bg-blue-100 text-md p-2 border-t-2"><slot /></div>
