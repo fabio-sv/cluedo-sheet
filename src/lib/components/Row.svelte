@@ -6,12 +6,25 @@
 	import Icon from 'svelte-icons-pack/Icon.svelte';
 	import ImCross from 'svelte-icons-pack/im/ImCross';
 	import ImCheckmark from 'svelte-icons-pack/im/ImCheckmark';
-	import VscClose from "svelte-icons-pack/vsc/VscClose";
+	import VscClose from 'svelte-icons-pack/vsc/VscClose';
 
 	export let label: string;
 	export let idx: number;
 
+	let nameState: 'none' | 'through' | 'circled' = 'none';
+
 	let open: number = -1;
+
+	function next() {
+		switch (nameState) {
+			case 'none':
+				return 'through';
+			case 'through':
+				return 'circled';
+			case 'circled':
+				return 'none';
+		}
+	}
 
 	function onOpen(idx: number) {
 		open = idx;
@@ -39,7 +52,14 @@
 </script>
 
 <div class="flex border-t-2">
-	<p class="flex-1 py-[0.125rem] px-2 font-semibold">{label}</p>
+	<button
+		class="flex-1 py-[0.125rem] px-2 font-semibold text-left"
+		class:line-through={nameState === 'through'}
+		class:circled={nameState === 'circled'}
+		on:click={() => (nameState = next())}
+	>
+		{label}
+	</button>
 
 	{#each $game[idx] as state, j (j)}
 		<button
@@ -102,5 +122,13 @@
 <style lang="postcss">
 	.highlight {
 		@apply bg-red-400/50;
+	}
+
+	.circled {
+		@apply font-black text-red-600;
+		/* background-image: url('/foo.avif');
+		background-position: center;
+		background-size: 100% auto;
+		background-repeat: round; */
 	}
 </style>

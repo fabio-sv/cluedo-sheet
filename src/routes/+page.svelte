@@ -5,7 +5,7 @@
 </script>
 
 <div
-	class="flex flex-col flex-1 *:flex-grow border-2 border-blue-600 *:border-t-blue-600 [&>*:not(:first-child)]:border-t-2"
+	class="flex flex-col flex-1 max-w-xl *:flex-grow border-2 border-blue-600 *:border-t-blue-600 [&>*:not(:first-child)]:border-t-2"
 >
 	<Heading extraBlocks>Characters</Heading>
 	{#each characters as character}
