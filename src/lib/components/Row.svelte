@@ -16,11 +16,19 @@
 		open = idx;
 	}
 
+	function getNewNotes(existing: number[], newNote: number) {
+		if (existing.includes(newNote)) {
+			return existing.filter((note) => note !== newNote);
+		}
+
+		return Array.from(new Set([...existing, newNote])).sort();
+	}
+
 	function onSelect(character?: States, note?: number) {
 		console.log('updating game', label, open, character, note);
 
 		const newNotes = note
-			? Array.from(new Set([...$newGame[idx][open].notes, note]))
+			? getNewNotes($newGame[idx][open].notes, note)
 			: $newGame[idx][open].notes;
 
 		const newState: State = {
@@ -31,7 +39,6 @@
 		$newGame[idx][open] = newState;
 		open = -1;
 	}
-
 </script>
 
 <div class="flex border-t-2">
