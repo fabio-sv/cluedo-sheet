@@ -7,6 +7,7 @@
 	import ImCross from 'svelte-icons-pack/im/ImCross';
 	import ImCheckmark from 'svelte-icons-pack/im/ImCheckmark';
 	import VscClose from 'svelte-icons-pack/vsc/VscClose';
+	import { fade } from 'svelte/transition';
 
 	export let label: string;
 	export let idx: number;
@@ -42,7 +43,7 @@
 		const newNotes = note ? getNewNotes($game[idx][open].notes, note) : $game[idx][open].notes;
 
 		const newState: State = {
-			state: character || $game[idx][open].state,
+			state: $game[idx][open].state === character ? States.UNKNOWN : character || $game[idx][open].state,
 			notes: newNotes
 		};
 
@@ -68,11 +69,11 @@
 			on:click={() => onOpen(j)}
 		>
 			{#if state.state === States.CROSS}
-				<Icon src={ImCross} />
+				<div transition:fade><Icon src={ImCross} /></div>
 			{:else if state.state === States.TICK}
-				<Icon src={ImCheckmark} />
+				<div transition:fade><Icon src={ImCheckmark} /></div>
 			{:else if state.state === States.MAYBE}
-				?
+				<div transition:fade>?</div>
 			{/if}
 
 			<div class="absolute text-[0.5rem] right-[0.2rem] bottom-0 text-right">
