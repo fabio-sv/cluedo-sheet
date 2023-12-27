@@ -2,8 +2,8 @@
 	export let extraBlocks = false;
 </script>
 
-<div class="bg-blue-100 text-md py-2 pl-2 border-t-2 flex items-center">
-	<p class="flex-1"><slot /></p>
+<div class="bg-blue-100 text-md py-2 pl-2 flex items-center">
+	<p class="flex-1 text-xl font-bold"><slot /></p>
 
 	{#if extraBlocks}
 		{#each [1, 2, 3, 4, 5, 6] as n}

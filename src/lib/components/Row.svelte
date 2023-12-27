@@ -40,7 +40,7 @@
 </script>
 
 <div class="flex border-t-2">
-	<p class="flex-1 py-[0.125rem] px-4">{label}</p>
+	<p class="flex-1 py-[0.125rem] px-2 font-semibold">{label}</p>
 
 	{#each $newGame[idx] as state, j (j)}
 		<button
