@@ -25,8 +25,6 @@
 	}
 
 	function onSelect(character?: States, note?: number) {
-		console.log('updating game', label, open, character, note);
-
 		const newNotes = note
 			? getNewNotes($newGame[idx][open].notes, note)
 			: $newGame[idx][open].notes;

@@ -7,7 +7,7 @@
 <div
 	class="flex flex-col border-4 border-blue-600 m-4 flex-1 *:flex-grow [&>*:not(:first-child)]:border-t-blue-600"
 >
-	<Heading>Characters</Heading>
+	<Heading extraBlocks>Characters</Heading>
 	{#each characters as character}
 		<Row label={character.name} idx={character.idx} />
 	{/each}
