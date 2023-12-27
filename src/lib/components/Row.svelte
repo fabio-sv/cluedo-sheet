@@ -64,7 +64,7 @@
 
 	{#each $game[idx] as state, j (j)}
 		<button
-			class="flex relative justify-center items-center border-l-2 border-blue-600 min-w-8"
+			class="flex relative justify-center items-center border-l-2 border-green-600 min-w-8"
 			class:highlight={open === j}
 			on:click={() => onOpen(j)}
 		>
