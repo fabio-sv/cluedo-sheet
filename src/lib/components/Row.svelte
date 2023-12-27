@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { State } from '../../stores/game';
-	import { States, newGame } from '../../stores/game';
+	import { States, game } from '../../stores/game';
 
 	// @ts-ignore
 	import Icon from 'svelte-icons-pack/Icon.svelte';
 	import ImCross from 'svelte-icons-pack/im/ImCross';
 	import ImCheckmark from 'svelte-icons-pack/im/ImCheckmark';
+	import VscClose from "svelte-icons-pack/vsc/VscClose";
 
 	export let label: string;
 	export let idx: number;
@@ -25,16 +26,14 @@
 	}
 
 	function onSelect(character?: States, note?: number) {
-		const newNotes = note
-			? getNewNotes($newGame[idx][open].notes, note)
-			: $newGame[idx][open].notes;
+		const newNotes = note ? getNewNotes($game[idx][open].notes, note) : $game[idx][open].notes;
 
 		const newState: State = {
-			state: character || $newGame[idx][open].state,
+			state: character || $game[idx][open].state,
 			notes: newNotes
 		};
 
-		$newGame[idx][open] = newState;
+		$game[idx][open] = newState;
 		open = -1;
 	}
 </script>
@@ -42,7 +41,7 @@
 <div class="flex border-t-2">
 	<p class="flex-1 py-[0.125rem] px-2 font-semibold">{label}</p>
 
-	{#each $newGame[idx] as state, j (j)}
+	{#each $game[idx] as state, j (j)}
 		<button
 			class="flex relative justify-center items-center border-l-2 border-blue-600 min-w-8"
 			class:highlight={open === j}
@@ -67,8 +66,12 @@
 
 {#if open !== -1}
 	<div
-		class="absolute top-0 left-0 z-10 bg-white/80 min-h-screen w-full grid grid-cols-3 place-items-center *:border-2 *:border-blue-400 *:h-full *:w-full"
+		class="absolute top-0 left-0 z-10 bg-white/80 min-h-screen w-full grid grid-cols-3 place-items-center !border-t-0 *:h-full *:w-full"
 	>
+		<button class="absolute top-2 right-2 z-20 !w-fit !h-fit !border-0" on:click={() => (open = -1)}
+			><Icon class="flex justify-center items-center p-2" color="red" src={VscClose} /></button
+		>
+
 		<button
 			class="font-black text-5xl flex justify-center items-center"
 			on:click={() => onSelect(States.CROSS)}

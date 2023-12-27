@@ -38,4 +38,4 @@ const _default = (): State[][] => {
   return array;
 }
 
-export const newGame = writable<State[][]>(_default());
+export const game = writable<State[][]>(_default());
