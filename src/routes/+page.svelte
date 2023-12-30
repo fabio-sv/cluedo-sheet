@@ -1,14 +1,15 @@
 <script lang="ts">
 	import Heading from '$lib/components/Heading.svelte';
-	import Names from '$lib/components/Names.svelte';
+	import Header from '$lib/components/Header.svelte';
 	import Row from '$lib/components/Row.svelte';
 	import { characters, weapons, rooms } from '$lib/data/items';
+	import { theme } from '../stores/theme';
 </script>
 
 <div
-	class="mx-2 min-h-screen flex flex-col flex-1 max-w-xl *:flex-grow border-2 border-green-600 *:border-t-green-600 [&>*:not(:first-child)]:border-t-2"
+	class={`mx-2 min-h-screen flex flex-col flex-1 max-w-xl *:flex-grow border-2 ${$theme.border} ${$theme.childBorder} [&>*:not(:first-child)]:border-t-2`}
 >
-	<Names />
+	<Header />
 
 	<Heading>Characters</Heading>
 	{#each characters as character}

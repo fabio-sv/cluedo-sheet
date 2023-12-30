@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let dialog: HTMLDialogElement;
 	export let showModal: boolean; // boolean
+	export let className = "";
 
 	$: if (dialog && showModal) dialog.showModal();
 </script>
@@ -10,7 +11,7 @@
 	bind:this={dialog}
 	on:close={() => (showModal = false)}
 	on:click|self={() => dialog.close()}
-    class="max-w-96 rounded-lg border-0 p-0 bg-green-100"
+    class={`max-w-96 rounded-lg border-0 p-0 ${className}`}
 >
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div on:click|stopPropagation class='p-4'>
