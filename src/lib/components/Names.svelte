@@ -3,7 +3,7 @@
 	import { names } from "../../stores/names";
 
 </script>
-<div class='flex justify-end py-2 sticky top-0 *:shadow-md *:bg-white z-10'>
+<div class='flex justify-end py-2 sticky top-0 *:shadow-md z-10 *:bg-green-100'>
     {#each $names as name}
         <input
             type="text"
