@@ -29,20 +29,18 @@
 	$: colours = Object.values(themes).map((t) => t.primary);
 </script>
 
-<div class="flex justify-between py-2">
-	<button on:click={() => (openMenu = true)}>
-		<Icon src={AiOutlineMenu} className="mx-2" />
-	</button>
+<button on:click={() => (openMenu = true)} class="absolute left-1 top-1 z-20 p-4">
+	<Icon src={AiOutlineMenu} className="mx-2" />
+</button>
 
-	<div class="fixed right-2 top-2 *:shadow-md z-10">
-		{#each $names as name}
-			<input
-				type="text"
-				bind:value={name}
-				class={`max-w-8 min-w-8 text-center font-black border-y-2 border-l-2 ${$theme.secondary} ${$theme.border} outline-none focus:outline-none rounded-none`}
-			/>
-		{/each}
-	</div>
+<div class="flex sticky justify-end py-2 top-0 *:shadow-md z-10">
+	{#each $names as name}
+		<input
+			type="text"
+			bind:value={name}
+			class={`max-w-8 min-w-8 text-center font-black border-y-2 border-l-2 ${$theme.secondary} ${$theme.border} outline-none focus:outline-none rounded-none`}
+		/>
+	{/each}
 </div>
 
 <Modal showModal={openMenu} bind:dialog>
